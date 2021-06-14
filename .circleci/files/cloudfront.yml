@@ -1,3 +1,5 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
 Description: >
   Cloudfront distribution for UdaPeople.
 
@@ -5,7 +7,7 @@ Parameters:
   WorkflowID:
     Description: Unique identifier.
     Type: String
-
+    Default: s5gahd7wnhwyd68fn
 
 Resources:
   
