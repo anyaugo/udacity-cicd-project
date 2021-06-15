@@ -1,3 +1,13 @@
+- name: "wait until lock file is removed."
+  wait_for:
+    path: /var/lock/file.lock
+    state: absent
+
+- name: "upgrade packages."
+  become: true
+  apt:
+    upgrade: "yes"
+
 - name: "install dependencies."
   become: true
   apt: 
