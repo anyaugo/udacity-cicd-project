@@ -1,7 +1,7 @@
 ---
 
 - name: "configuration play." 
-  hosts: all
+  hosts: web
   user: ubuntu
   gather_facts: false
   vars:
@@ -25,10 +25,10 @@
   
   environment:
     ENVIRONMENT=production
-    TYPEORM_CONNECTION=${TYPEORM_CONNECTION}
-    TYPEORM_ENTITIES=${TYPEORM_ENTITIES}
-    TYPEORM_HOST=${TYPEORM_HOST}
-    TYPEORM_PORT=${TYPEORM_PORT}
-    TYPEORM_USERNAME=${TYPEORM_USERNAME}
-    TYPEORM_PASSWORD=${TYPEORM_PASSWORD}
-    TYPEORM_DATABASE=${TYPEORM_DATABASE}
+    TYPEORM_CONNECTION=postgres
+    TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
+    TYPEORM_HOST=postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com
+    TYPEORM_PORT=5432
+    TYPEORM_USERNAME=postgresuser
+    TYPEORM_PASSWORD=passpostgres
+    TYPEORM_DATABASE=postgresdb
