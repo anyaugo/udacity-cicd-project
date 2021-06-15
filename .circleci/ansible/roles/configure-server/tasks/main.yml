@@ -1,9 +1,11 @@
 - name: "delete lock file."
+  become: true
   file:
     state: absent
     path: /var/lib/apt/lists/lock
 
 - name: "delete lock-frontend files."
+  become: true
   file:
     state: absent
     path: /var/lib/apt/lists/lock-frontend
