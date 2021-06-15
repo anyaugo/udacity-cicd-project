@@ -216,6 +216,7 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - run: pip install awscli
       - add_ssh_keys:
           fingerprints: ["a2:45:c1:81:51:0a:8c:63:a8:26:11:81:f3:a3:e7:1c"]
       - attach_workspace:
@@ -227,7 +228,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i inventory.txt configure-server.yml ${TYPEORM_CONNECTION} ${TYPEORM_ENTITIES} ${TYPEORM_HOST} ${TYPEORM_PORT} ${TYPEORM_USERNAME} ${TYPEORM_PASSWORD} ${TYPEORM_DATABASE} 
+            ansible-playbook -i inventory.txt ansible/configure-server.yml ${TYPEORM_CONNECTION} ${TYPEORM_ENTITIES} ${TYPEORM_HOST} ${TYPEORM_PORT} ${TYPEORM_USERNAME} ${TYPEORM_PASSWORD} ${TYPEORM_DATABASE} 
       - destroy-environment:
           to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
