@@ -1,20 +1,3 @@
-- name: "update apt cache."
-  become: true
-  apt: 
-    update_cache: yes
-    force_apt_get: yes
-
-- name: "remove apt lock file."
-  become: true
-  file: 
-    state: absent
-    path: "var/lib/dpkg/lock-frontend"
-
-- name: "upgrade packages."
-  become: true
-  apt:
-    upgrade: "yes"
-
 - name: "install dependencies."
   become: true
   apt: 
