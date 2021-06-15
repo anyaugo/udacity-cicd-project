@@ -1,7 +1,7 @@
-- name: "wait until lock file is removed."
+- name: "wait until lock-frontend is available."
   wait_for:
-    path: /var/lock/file.lock
-    state: absent
+    path: /var/lib/dpkg/lock-frontend
+    state: present
 
 - name: "upgrade packages."
   become: true
