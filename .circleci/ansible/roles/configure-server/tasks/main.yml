@@ -1,3 +1,13 @@
+- name: "delete lock file."
+  file:
+    state: absent
+    path: /var/lib/apt/lists/lock
+
+- name: "delete lock-frontend files."
+  file:
+    state: absent
+    path: /var/lib/apt/lists/lock-frontend
+
 - name: "upgrade packages."
   become: true
   apt:
