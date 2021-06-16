@@ -255,6 +255,7 @@ jobs:
       - run: npm i
       - run: pip install awscli
       - run: npm install -g db-migrate
+      - run:
           name: Run migrations
           command: |
             cd backend/src/migrations
