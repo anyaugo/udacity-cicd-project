@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0.3
   slack: circleci/slack@4.4.2
 
 commands:
@@ -250,9 +249,13 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/python:3.9.5
     steps:
       - checkout
+      - run: pip install aws-cli
+      - run: pip install nodeenv
+      - run: nodeenv env
+      - run: . env/bin/activate
       - run: npm install -g db-migrate
       - run:
           name: Run migrations
