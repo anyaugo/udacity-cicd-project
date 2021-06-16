@@ -252,11 +252,12 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run:
+      - run: npm i
+      - run: pip install awscli
+      - run: npm install -g db-migrate
           name: Run migrations
           command: |
             cd backend/src/migrations
-            npm i
             db-migrate up >> output.txt
       - run:
           name: Send migration results to memstash
