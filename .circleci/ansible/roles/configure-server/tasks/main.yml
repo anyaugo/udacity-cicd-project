@@ -22,6 +22,11 @@
 #     state: absent
 #     path: /var/lib/dpkg/lock
 
+- name: "apt update."
+  become: true
+  apt:
+    update: yes
+
 - name: "upgrade packages."
   become: true
   apt:
