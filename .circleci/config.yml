@@ -252,7 +252,8 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
-      - run: pip install npm nodejs awscli
+      - run: pip install nodeenv awscli
+      - run: nodeenv -p
       - run: npm install -g db-migrate
       - run:
           name: Run migrations
