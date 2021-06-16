@@ -249,19 +249,10 @@ jobs:
 
   run-migrations:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: amazon/aws-cli
     steps:
       - checkout
-      - run: 
-          name: Install node and awscli
-          command: |
-            apk add --install python-virtualenv curl
-            DEV=${HOME}/dev/javascript/node mkdir -p $DEV; cd $DEV
-            virtualenv venv
-            source venv/bin/activate
-            pip install nodeenv awscli
-      - run: source nenv/bin/activate
-      - run: nodeenv --node=0.10.31  nenv
+      - run: yum install nodejs -y
       - run: npm install -g db-migrate
       - run:
           name: Run migrations
