@@ -1,26 +1,26 @@
-- name: "delete lock file."
-  become: true
-  file:
-    state: absent
-    path: /var/lib/apt/lists/lock
+# - name: "delete lock file."
+#   become: true
+#   file:
+#     state: absent
+#     path: /var/lib/apt/lists/lock
 
-- name: "delete lock-frontend file."
-  become: true
-  file:
-    state: absent
-    path: /var/lib/apt/lists/lock-frontend
+# - name: "delete lock-frontend file."
+#   become: true
+#   file:
+#     state: absent
+#     path: /var/lib/apt/lists/lock-frontend
 
-- name: "delete lock cache."
-  become: true
-  file:
-    state: absent
-    path: /var/cache/apt/archives/lock
+# - name: "delete lock cache."
+#   become: true
+#   file:
+#     state: absent
+#     path: /var/cache/apt/archives/lock
 
-- name: "delete lock-frontend file."
-  become: true
-  file:
-    state: absent
-    path: /var/lib/dpkg/lock
+# - name: "delete lock-frontend file."
+#   become: true
+#   file:
+#     state: absent
+#     path: /var/lib/dpkg/lock
 
 - name: "upgrade packages."
   become: true
