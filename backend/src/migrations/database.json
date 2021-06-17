@@ -1,6 +1,6 @@
 {
     "dev": {
-    "driver": "postgres",
+    "driver": "pg",
     "typeorm_connection": "postgres",
     "typeorm_entities": "./src/modules/domain/**/*.entity.ts",
     "typeorm_host": "postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com",

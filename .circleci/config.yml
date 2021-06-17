@@ -257,7 +257,7 @@ jobs:
           name: Install db-migrate
           command: |
             npm i
-            sudo npm install db-migrate -g
+            sudo npm install db-migrate db-migrate-pg -g
       - run:
           name: Run migrations
           command: |
