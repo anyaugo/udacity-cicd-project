@@ -254,7 +254,7 @@ jobs:
       - checkout
       - run: pip install awscli
       - run: npm i
-      - run: npm install -g db-migrate
+      - run: npm install db-migrate
       - run:
           name: Run migrations
           command: |
