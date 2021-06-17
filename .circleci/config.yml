@@ -249,13 +249,13 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/python:3.9.5
+      - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: pip install aws-cli
-      - run: pip install nodeenv
-      - run: nodeenv env
-      - run: . env/bin/activate
+      - run: apt-get update
+      - run: npm i
+      - run: apt-get install python3-pip -y
+      - run: pip3 install awscli
       - run: npm install -g db-migrate
       - run:
           name: Run migrations
