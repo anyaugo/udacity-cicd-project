@@ -253,12 +253,12 @@ jobs:
     steps:
       - checkout
       - run: pip install awscli
-      - run: npm i
-      - run: npm install db-migrate
       - run:
           name: Run migrations
           command: |
             cd backend/src/migrations
+            npm i
+            npm install db-migrate
             db-migrate up >> output.txt
       - run:
           name: Send migration results to memstash
