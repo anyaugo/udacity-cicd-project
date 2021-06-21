@@ -1,7 +1,6 @@
 {
     "dev": {
     "driver": "pg",
-    "connection": "postgres",
     "entities": "./src/modules/domain/**/*.entity.ts",
     "host": "postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com",
     "port": "5432",
