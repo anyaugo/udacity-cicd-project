@@ -13,6 +13,6 @@
 - name: "copy files."
   become: true
   copy:
-    src: backend/dist
+    src: /backend/dist
     dest: ~/
     
