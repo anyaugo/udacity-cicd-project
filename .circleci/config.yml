@@ -314,7 +314,6 @@ jobs:
     steps:
       - checkout
       - run: pip install awscli
-      - run: yum install curl
       - add_ssh_keys:
           fingerprints: ["a2:45:c1:81:51:0a:8c:63:a8:26:11:81:f3:a3:e7:1c"]
       - attach_workspace:
@@ -328,8 +327,6 @@ jobs:
           command: |
             cd .circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
-      - revert-migrations:
-          key: "migration_${CIRCLE_WORKFLOW_ID}"
       - empty-bucket:
           to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
