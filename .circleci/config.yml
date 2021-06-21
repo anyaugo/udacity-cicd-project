@@ -19,20 +19,18 @@ commands:
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
-      # Add parameter here
+      key:
+        type: string
     steps:
       - run:
           name: Revert migrations
-          # Add when this will run
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
+            curl -H "token: 68de42c9-7df8-430d-b8b7-60e78adeb091" --request GET https://api.memstash.io/values/"<<parameters.key>>" >> SUCCESS
             if(( $SUCCESS==1 )); 
             then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
+                cd ~/project/backend
+                npm install
+                npm run migrations:revert 
             fi
 
 jobs:
@@ -201,19 +199,6 @@ jobs:
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
             --output text >> .circleci/ansible/inventory.txt
-      - run:
-          name: Add back-end ip to variable
-          command: |
-            aws ec2 describe-instances \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:project,Values=udapeople" \
-            --output text >> BACKEND_IP
-      - run:
-          name: Add back-end publicdns to memstash.io
-          command: |
-            curl -H "Content-Type: text/plain" -H \
-            "token: 87b0e9d7-0128-4acb-8e41-41b932cc57f4" \
-            --request PUT --data "${BACKEND_IP}" https://api.memstash.io/values/backendURL
       - persist_to_workspace:
           root: ~/
           paths:
@@ -276,26 +261,38 @@ jobs:
       - destroy-environment:
           to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
-#   deploy-frontend:
-#     docker:
-#       # Docker image here that supports AWS CLI
-#     steps:
-#       # Checkout code from git
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             # your code here
-#       - run:
-#           name: Get backend url
-#           command: |
-#             # your code here
-#             export API_URL="http://${BACKEND_IP}:3030"
-#             echo "${API_URL}"
-#       - run:
-#           name: Deploy frontend objects
-#           command: |
-#             # your code here
-#       # Here's where you will add some code to rollback on failure
+  deploy-frontend:
+    docker:
+      - image: circleci/python:3-node
+    steps:
+      - checkout
+      - run: pip install awscli
+      - run:
+          name: Install dependencies
+          command: |
+            npm i
+            apk add --update ansible
+      - run:
+          name: Get backend url
+          command: |
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --filters "Name=tag:project,Values=udapeople" \
+            --output text >> BACKEND_IP
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+      - run:
+          name: Deploy frontend objects
+          command: |
+            cd frontend
+            npm run build
+            aws s3 cp ./dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+      - revert-migrations:
+          key: "migration_${CIRCLE_WORKFLOW_ID}"
+      - destroy-environment:
+          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
 #   deploy-backend:
 #     docker:
@@ -393,8 +390,8 @@ workflows:
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      # - deploy-frontend:
-      #     requires: [run-migrations]
+      - deploy-frontend:
+          requires: [run-migrations]
       # - deploy-backend:
       #     requires: [run-migrations]
       # - smoke-test:
