@@ -92,6 +92,10 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/backend/.dist
 
   test-frontend:
     docker:
@@ -251,11 +255,6 @@ jobs:
     steps:
       - checkout
       - run: pip install awscli
-      # - run:
-      #     name: Install db-migrate
-      #     command: |
-      #       npm i
-      #       sudo npm install db-migrate db-migrate-pg -g
       - run:
           name: Run migrations
           command: |
@@ -326,8 +325,6 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            npm i
-            npm run build
             cd /.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       - empty-bucket:
