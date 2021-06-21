@@ -92,10 +92,9 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - ./dist
+      - save_cache:
+          paths: [backend/dist]
+          key: backend-dist
 
   test-frontend:
     docker:
@@ -318,6 +317,8 @@ jobs:
           fingerprints: ["a2:45:c1:81:51:0a:8c:63:a8:26:11:81:f3:a3:e7:1c"]
       - attach_workspace:
           at: ~/
+      - restore_cache:
+          keys: [backend-dist]
       - run:
           name: Install dependencies
           command: |

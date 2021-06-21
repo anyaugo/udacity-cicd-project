@@ -12,8 +12,7 @@
 
 - name: "copy files."
   become: true
-  chdir: /backend
   copy:
-    src: ~/.dist
+    src: ~/dist
     dest: ~/
     
