@@ -13,7 +13,7 @@
 - name: "copy files."
   become: true
   ansible.builtin.copy:
-    src: ~/dist
+    src: ~/backend/dist
     dest: ~/
     remote_src: yes
     
