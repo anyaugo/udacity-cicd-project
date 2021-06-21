@@ -14,5 +14,5 @@
   become: true
   copy:
     src: backend/dist
-    dest: ~
+    dest: ~/
     
