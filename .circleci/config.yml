@@ -24,6 +24,7 @@ commands:
     steps:
       - run:
           name: Revert migrations
+          when: on_fail
           command: |
             curl -H "token: 68de42c9-7df8-430d-b8b7-60e78adeb091" --request GET https://api.memstash.io/values/"<<parameters.key>>" >> SUCCESS
             if(( $SUCCESS==1 )); 
@@ -270,7 +271,6 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            npm i
             apk add --update ansible
       - run:
           name: Get backend url
@@ -285,6 +285,7 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
+            npm i
             npm run build
             aws s3 cp ./dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - revert-migrations:
