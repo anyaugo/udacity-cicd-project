@@ -261,7 +261,7 @@ jobs:
       - run:
           name: Run migrations
           command: |
-            cd backend/src/migrations
+            cd backend
             db-migrate up >> output.txt
       - run:
           name: Send migration results to memstash
