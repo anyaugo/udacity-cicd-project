@@ -330,6 +330,7 @@ jobs:
             cd backend
             npm i
             npm run build
+            ls -l
             cd /root/project/.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       - empty-bucket:

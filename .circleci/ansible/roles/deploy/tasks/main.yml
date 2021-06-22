@@ -15,5 +15,4 @@
   ansible.builtin.copy:
     src: /root/project/backend/dist
     dest: ~/
-    remote_src: yes
     
