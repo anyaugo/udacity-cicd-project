@@ -323,7 +323,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
-            apk add --update nodejs npm
+            apk add --update nodejs npm rysnc
       - run:
           name: Deploy backend
           command: |
