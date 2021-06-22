@@ -319,9 +319,7 @@ jobs:
           command: |
             apk update
             apk add --update ansible
-            apk add --update nodejs npm
-            apk add --upgrade rsync
-            apk add --update openssh                              
+            apk add --update nodejs npm                             
       - run:
           name: Deploy backend
           command: |
