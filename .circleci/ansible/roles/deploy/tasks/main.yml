@@ -12,7 +12,7 @@
 
 - name: "copy files."
   become: true
-  copy:
+  synchronize:
     src: /root/project/backend/dist
     dest: ~/
     
