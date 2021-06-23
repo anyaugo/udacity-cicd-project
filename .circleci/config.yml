@@ -282,11 +282,12 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            BACKEND_IP='aws ec2 describe-instances \
+            aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:project,Values=udapeople"
-            --output text'
-            export API_URL="http://$BACKEND_IP:3030"
+            --filters "Name=tag:project,Values=udapeople" \
+            --output text >> output.txt
+            BACKEND_IP='cat output.txt'
+            export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
       - run:
           name: Deploy frontend objects
@@ -351,11 +352,12 @@ jobs:
           command: |
             BACKEND_IP='aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:project,Values=udapeople"
-            --output text'
+            --filters "Name=tag:project,Values=udapeople" \
+            --output text >> output.txt'
       - run:
           name: Backend smoke test.
           command: |
+            BACKEND_IP='cat output.txt'
             curl https://${BACKEND_IP}:3030/api/status
       - run:
           name: Frontend smoke test.
