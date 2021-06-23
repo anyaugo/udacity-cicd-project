@@ -363,9 +363,9 @@ jobs:
             URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-eu-west-2.amazonaws.com"
             if curl -s ${URL} | grep "Welcome"
             then
-            return 1
+              return 1
             esle
-            return 0
+              return 0
             fi
        - empty-bucket:
           to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
