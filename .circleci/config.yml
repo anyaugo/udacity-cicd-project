@@ -11,7 +11,7 @@ commands:
         type: string
     steps:
       - run:
-          name: Destroy environments
+          name: Destroy environment "<<parameters.to>>"
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name "<<parameters.to>>"
@@ -34,7 +34,7 @@ commands:
                 npm run migrations:revert 
             fi
 
-  empty-bucket:
+  empty-frontend-bucket:
     description: Empty front-end s3 bucket.
     parameters:
       to:
@@ -367,22 +367,14 @@ jobs:
             esle
               return 0
             fi
-      - run:
-          name: Empty Frontend Bucket
-          empty-bucket:
-            to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-      - run: 
-          name: Delete Frontend Environment
-          destroy-environment:
-            to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
-      - run:
-          name: Revert Backend Migrations
-          revert-migrations:
-            key: "migration_${CIRCLE_WORKFLOW_ID}"
-      - run: 
-          name: Destroy Backend Environment
-          destroy-environment:
-            to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - empty-bucket:
+          to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - revert-migrations:
+          key: "migration_${CIRCLE_WORKFLOW_ID}"
+      - destroy-environment:
+          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
 #   cloudfront-update:
 #     docker:
