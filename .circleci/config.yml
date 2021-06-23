@@ -356,7 +356,7 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            curl https://${BACKEND_IP}:3000/api/status
+            curl https://${BACKEND_IP}:3030/api/status
       - run:
           name: Frontend smoke test.
           command: |
@@ -367,12 +367,22 @@ jobs:
             esle
               return 0
             fi
-      - empty-bucket:
-          to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-      - destroy-environment:
-          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
-      - destroy-environment:
-          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - run:
+          name: Empty Frontend Bucket
+          empty-bucket:
+            to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+      - run: 
+          name: Delete Frontend Environment
+          destroy-environment:
+            to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - run:
+          name: Revert Backend Migrations
+          revert-migrations:
+            key: "migration_${CIRCLE_WORKFLOW_ID}"
+      - run: 
+          name: Destroy Backend Environment
+          destroy-environment:
+            to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
 #   cloudfront-update:
 #     docker:
