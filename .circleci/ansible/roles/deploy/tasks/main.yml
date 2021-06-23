@@ -13,6 +13,6 @@
 - name: "copy files."
   become: true
   copy:
-    src: /root/project/backend/dist
+    src: /root/project/backend/dist.zip
     dest: /root
     
