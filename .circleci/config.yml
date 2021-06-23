@@ -403,8 +403,6 @@ jobs:
           key: "migration_${CIRCLE_WORKFLOW_ID}"
       - destroy-environment:
           to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
-      - destroy-environment:
-          to: "green-stack"
 
   cleanup:
     docker:
@@ -420,6 +418,7 @@ jobs:
                 --no-paginate --output text)
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
                 --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
+      - run: echo ${OldWorkflowID}
       - run:
           name: Remove old stacks and files
           command: |
@@ -429,6 +428,12 @@ jobs:
               aws cloudformation delete-stack --stack-name "backend-${OldWorkflowID}"
               aws cloudformation delete-stack --stack-name "frontend-${OldWorkflowID}"
             fi
+      - empty-frontend-bucket:
+          to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
 workflows:
   default:
