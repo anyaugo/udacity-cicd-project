@@ -393,7 +393,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --tags project=udapeople \
-              --stack-name "green-stack-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --stack-name "green-stack" \
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"
       - empty-frontend-bucket:
           to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
@@ -403,6 +403,8 @@ jobs:
           key: "migration_${CIRCLE_WORKFLOW_ID}"
       - destroy-environment:
           to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "green-stack"
 
 # cleanup:
 #   docker:
