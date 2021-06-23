@@ -284,7 +284,8 @@ jobs:
           command: |
             BACKEND_IP='aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:project,Values=udapeople"'
+            --filters "Name=tag:project,Values=udapeople"
+            --output text'
             export API_URL="http://$BACKEND_IP:3030"
             echo "${API_URL}"
       - run:
@@ -350,7 +351,8 @@ jobs:
           command: |
             BACKEND_IP='aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters "Name=tag:project,Values=udapeople"'
+            --filters "Name=tag:project,Values=udapeople"
+            --output text'
       - run:
           name: Backend smoke test.
           command: |
