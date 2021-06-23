@@ -286,7 +286,7 @@ jobs:
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
             --output text >> output.txt
-            export BACKEND_IP='cat output.txt'
+            BACKEND_IP=$( cat output.txt )
             export API_URL="http://$BACKEND_IP:3030"
             echo "${API_URL}"
       - run:
@@ -357,7 +357,7 @@ jobs:
       - run:
           name: Backend smoke test.
           command: |
-            export BACKEND_IP='cat output.txt'
+            BACKEND_IP=$( cat output.txt )
             curl https://$BACKEND_IP:3030/api/status
       - run:
           name: Frontend smoke test.
