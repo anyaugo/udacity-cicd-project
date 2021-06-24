@@ -418,7 +418,7 @@ jobs:
             aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
             --stack-status-filter CREATE_COMPLETE --no-paginate --output text >> stacks.txt
       - run: OldWorkflowID=$( cat id.txt )
-      - run: STACKS[]=$( cat stacks.txt )
+      - run: STACKS[@]=$( cat stacks.txt )
       - run:
           name: Remove old stacks and files
           command: |
