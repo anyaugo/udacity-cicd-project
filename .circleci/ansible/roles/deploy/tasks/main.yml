@@ -20,6 +20,7 @@
   unarchive:
     src: /tmp/dist.zip
     dest: /home/ubuntu
+    remote_src: yes
 
 - name: Start Node App
   become: true
