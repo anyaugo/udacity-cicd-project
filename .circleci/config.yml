@@ -412,13 +412,13 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
-            OldWorkflowID=$( aws cloudformation list-exports \
+            aws cloudformation list-exports \
             --query "Exports[?Name=='WorkflowID'].Value" \
-            --no-paginate --output text )
-            STACKS=$( aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
-            --stack-status-filter CREATE_COMPLETE --no-paginate --output text )
-      - run: echo $OldWorkflowID
-      - run: echo $STACKS
+            --no-paginate --output text >> id.txt
+            aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
+            --stack-status-filter CREATE_COMPLETE --no-paginate --output text >> stacks.txt
+      - run: cat id.txt
+      - run: cat stacks.txt
       - run:
           name: Remove old stacks and files
           command: |
