@@ -6,7 +6,7 @@
 - name: "copy env file."
   become: true
   copy:
-    src: .env
+    src: /root/project/backend/.env
     dest: /home/ubuntu
 
 - name: "copy dist files."
