@@ -3,16 +3,25 @@
   apt:
     upgrade: yes
 
-- name: "install dependencies."
+- name: "copy env file."
   become: true
-  apt: 
-    name: ["nodejs", "npm"]
-    state: latest
-    update_cache: yes
+  copy:
+    src: .env
+    dest: /home/ubuntu
 
-- name: "copy files."
+- name: "copy dist files."
   become: true
   copy:
     src: /root/project/backend/dist.zip
-    dest: /root
+    dest: /tmp
+
+- name: "unzip dist folder."
+  become: true
+  unarchive:
+    src: /tmp/dist.zip
+    dest: /home/ubuntu
+
+- name: Start Node App
+  become: true
+  command: pm2 start index.js --name app chdir=/home/ubuntu/dist
     
