@@ -370,13 +370,6 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      # - run:
-      #     name: Get old stack workflow id
-      #     command: |
-      #       aws cloudformation list-exports \
-      #       --query "Exports[?Name=='WorkflowID'].Value" \
-      #       --no-paginate --output text >> id.txt
-      # - run: OldWorkflowID=$( cat id.txt )
       - run:
           name: Remove old stacks and files
           command: |
