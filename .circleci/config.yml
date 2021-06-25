@@ -315,21 +315,21 @@ jobs:
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
             --output text >> output.txt
-      # - run:
-      #     name: Backend smoke test.
-      #     command: |
-      #       BACKEND_IP=$( cat output.txt )
-      #       curl http://$BACKEND_IP:3030/api/status
-      # - run:
-      #     name: Frontend smoke test.
-      #     command: |
-      #       URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-eu-west-2.amazonaws.com"
-      #       if curl -s ${URL} | grep "Welcome";
-      #       then
-      #         return 1
-      #       esle
-      #         return 0
-      #       fi
+      - run:
+          name: Backend smoke test.
+          command: |
+            BACKEND_IP=$( cat output.txt )
+            curl http://$BACKEND_IP:3030/api/status
+      - run:
+          name: Frontend smoke test.
+          command: |
+            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-eu-west-2.amazonaws.com"
+            if curl -s ${URL} | grep "Welcome";
+            then
+              return 1
+            esle
+              return 0
+            fi
       - empty-frontend-bucket:
           to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
