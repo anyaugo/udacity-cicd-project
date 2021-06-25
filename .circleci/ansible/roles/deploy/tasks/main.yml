@@ -3,26 +3,20 @@
   apt:
     upgrade: yes
 
-- name: "copy env file."
+- name: "copy files."
   become: true
   copy:
-    src: /root/project/backend/.env.main
-    dest: /home/ubuntu
-
-- name: "copy dist files."
-  become: true
-  copy:
-    src: /root/project/backend/dist.zip
+    src: /root/project/backend.zip
     dest: /tmp
 
 - name: "unzip dist folder."
   become: true
   unarchive:
-    src: /tmp/dist.zip
+    src: /tmp/backend.zip
     dest: /home/ubuntu
     remote_src: yes
 
 - name: Start Node App
   become: true
-  command: pm2 start main.js --name app chdir=/home/ubuntu/dist
+  command: pm2 start dist/main.js --name app chdir=/home/ubuntu/backend
     

@@ -289,7 +289,8 @@ jobs:
             cd backend
             npm i
             npm run build
-            zip -r dist.zip dist
+            cd ..
+            zip -r backend.zip backend
             cd /root/project/.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       - empty-frontend-bucket:
