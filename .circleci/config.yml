@@ -248,7 +248,7 @@ jobs:
             --filters "Name=tag:project,Values=udapeople" \
             --output text >> output.txt
             BACKEND_IP=$( cat output.txt )
-            export API_URL="http://$BACKEND_IP:3030"
+            export API_URL="http://$BACKEND_IP:3000"
             echo "${API_URL}"
       - run:
           name: Deploy frontend objects
@@ -319,7 +319,7 @@ jobs:
           name: Backend smoke test.
           command: |
             BACKEND_IP=$( cat output.txt )
-            curl http://$BACKEND_IP:3030/api/status
+            curl http://$BACKEND_IP:3000/api/status
       - run:
           name: Frontend smoke test.
           command: |
@@ -330,14 +330,14 @@ jobs:
             esle
               return 0
             fi
-      - empty-frontend-bucket:
-          to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-      - destroy-environment:
-          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
-      - revert-migrations:
-          key: "migration_${CIRCLE_WORKFLOW_ID}"
-      - destroy-environment:
-          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      # - empty-frontend-bucket:
+      #     to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+      # - destroy-environment:
+      #     to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+      # - revert-migrations:
+      #     key: "migration_${CIRCLE_WORKFLOW_ID}"
+      # - destroy-environment:
+      #     to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
 
   cloudfront-update:
     docker:
