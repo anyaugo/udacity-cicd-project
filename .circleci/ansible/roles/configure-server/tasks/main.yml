@@ -17,3 +17,15 @@
     global: yes
     production: yes
     state: present
+
+- name: "configure environment."
+  become: true
+  environment:
+    ENVIRONMENT: production
+    TYPEORM_CONNECTION: postgres
+    TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
+    TYPEORM_HOST: postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com
+    TYPEORM_PORT: 5432
+    TYPEORM_USERNAME: postgresuser
+    TYPEORM_PASSWORD: passpostgres
+    TYPEORM_DATABASE: postgresdb

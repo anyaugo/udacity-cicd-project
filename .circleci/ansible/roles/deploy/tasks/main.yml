@@ -9,14 +9,14 @@
     src: /root/project/backend.zip
     dest: /tmp
 
-- name: "unzip dist folder."
+- name: "unzip folder."
   become: true
   unarchive:
     src: /tmp/backend.zip
     dest: /home/ubuntu
     remote_src: yes
 
-- name: Start Node App
+- name: Start app
   become: true
   command: pm2 start dist/main.js --name app chdir=/home/ubuntu/backend
     
