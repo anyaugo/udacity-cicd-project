@@ -222,6 +222,7 @@ jobs:
           name: Send migration results to memstash
           command: |
             cd backend
+            cat output.txt
             if cat output.txt | grep -q "has been executed sucessfully"; then
                 curl -H "Content-Type: text/plain" -H \ 
                 "token: 68de42c9-7df8-430d-b8b7-60e78adeb091" \ 

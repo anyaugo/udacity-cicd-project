@@ -20,6 +20,10 @@
   become: true
   shell: mv .env.main .env chdir=/home/ubuntu/backend
 
+- name: "make .env file"
+  become: true
+  shell: source .env chdir=/home/ubuntu/backend
+
 - name: "start node application"
   become: true
   shell: node dist/main.js chdir=/home/ubuntu/backend
