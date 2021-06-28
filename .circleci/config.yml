@@ -217,10 +217,11 @@ jobs:
           command: |
             cd backend
             npm i
-            mv .env.main .env
-            source .env
-            echo $TYPEORM_DATABASE
-            ts-node -r dotenv/config node_modules/.bin/typeorm migration:run > output.txt
+            ls -l 
+            # mv .env.main .env
+            # source .env
+            # echo $TYPEORM_DATABASE
+            # npm run migrations > output.txt
       - run:
           name: Send migration results to memstash
           command: |
