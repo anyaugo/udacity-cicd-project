@@ -219,7 +219,8 @@ jobs:
             npm i
             mv .env.main .env
             source .env
-            npm run migrations > output.txt
+            echo $TYPEORM_DATABASE
+            ts-node -r dotenv/config node_modules/.bin/typeorm migration:run > output.txt
       - run:
           name: Send migration results to memstash
           command: |
