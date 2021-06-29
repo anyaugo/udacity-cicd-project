@@ -16,6 +16,10 @@
     dest: /home/ubuntu
     remote_src: yes
 
+- name: "fix vulnerablities"
+  become: true
+  shell: npm audit fix chdir=/home/ubuntu/backend
+
 - name: "pre-start node application"
   become: true
   shell: npm run build chdir=/home/ubuntu/backend
