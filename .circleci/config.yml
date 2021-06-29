@@ -223,7 +223,7 @@ jobs:
             npm run build
             cd dist/migrations
             npm run migrations:revert
-            npm run migrations > output.txt 2>&1
+            npm run migrations > /root/project/backend/output.txt 2>&1
       - run:
           name: Send migration results to memstash
           command: |
