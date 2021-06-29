@@ -220,6 +220,8 @@ jobs:
             cd backend
             npm i
             npm audit fix
+            npm run build
+            cd dist/migrations
             npm run migrations:revert
             npm run migrations > output.txt 2>&1
       - run:
@@ -300,12 +302,12 @@ jobs:
             zip -r backend.zip backend
             cd /root/project/.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
-      # - empty-frontend-bucket:
-      #     to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - destroy-environment:
-      #     to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - destroy-environment:
-      #     to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - empty-frontend-bucket:
+          to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
   smoke-test:
     docker:
