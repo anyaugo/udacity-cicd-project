@@ -18,7 +18,7 @@
 
 - name: "install dependencies"
   become: true
-  shell: npm i chdir=/home/ubuntu/backend
+  shell: npm install chdir=/home/ubuntu/backend
 
 - name: "start node application"
   become: true
