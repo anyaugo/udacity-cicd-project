@@ -16,6 +16,19 @@
     dest: /home/ubuntu
     remote_src: yes
 
+- name: "pre-start node application"
+  become: true
+  shell: rimraf dist && tsc chdir=/home/ubuntu/backend
+  environment:
+    ENVIRONMENT: production
+    TYPEORM_CONNECTION: postgres
+    TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
+    TYPEORM_HOST: postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com
+    TYPEORM_PORT: 5432
+    TYPEORM_USERNAME: postgresuser
+    TYPEORM_PASSWORD: passpostgres
+    TYPEORM_DATABASE: postgresdb
+
 - name: "start node application"
   become: true
   shell: node dist/main.js chdir=/home/ubuntu/backend
