@@ -18,7 +18,7 @@
 
 - name: "start node application"
   become: true
-  shell: npm run start:prod chdir=/home/ubuntu/backend
+  shell: node dist/main.js chdir=/home/ubuntu/backend
   environment:
     ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
