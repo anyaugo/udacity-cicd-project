@@ -18,7 +18,7 @@
 
 - name: "pre-start node application"
   become: true
-  shell: node_modules/.bin/rimraf dist && node_modules/.bin/tsc chdir=/home/ubuntu/backend
+  shell: rimraf /home/ubuntu/backend/dist && tsc chdir=/home/ubuntu/backend/node_modules/.bin
   environment:
     ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
