@@ -291,6 +291,11 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+            cd backend
+            npm i
+            npm audit fix
+            npm run build
+            cd ..
             zip -r backend.zip backend
             cd /root/project/.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
