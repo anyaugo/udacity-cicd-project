@@ -221,6 +221,7 @@ jobs:
           command: |
             cd backend
             npm i
+            npm audit fix
             npm run migrations >> output.txt 2>&1
       - run:
           name: Send migration results to memstash
