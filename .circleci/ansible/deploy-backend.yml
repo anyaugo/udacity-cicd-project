@@ -18,4 +18,4 @@
     TYPEORM_PORT: 5432
     TYPEORM_USERNAME: postgresuser
     TYPEORM_PASSWORD: passpostgres
-    TYPEORM_DATABASE: postgresdb
+    TYPEORM_DATABASE: postgres
