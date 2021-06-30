@@ -222,7 +222,7 @@ jobs:
             cd backend
             npm i
             npm audit fix
-            npm run migrations >> output.txt 2>&1
+            npm run migrations
       - run:
           name: Send migration results to memstash
           command: |
