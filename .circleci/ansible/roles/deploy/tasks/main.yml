@@ -29,19 +29,6 @@
 #     TYPEORM_PASSWORD: passpostgres
 #     TYPEORM_DATABASE: postgresdb
 
-- name: "start node application"
-  become: true
-  shell: node dist/main.js chdir=/home/ubuntu/backend
-  environment:
-    ENVIRONMENT: production
-    TYPEORM_CONNECTION: postgres
-    TYPEORM_ENTITIES: ./src/modules/domain/**/entities/*.entity.ts
-    TYPEORM_HOST: postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com
-    TYPEORM_PORT: 5432
-    TYPEORM_USERNAME: postgresuser
-    TYPEORM_PASSWORD: passpostgres
-    TYPEORM_DATABASE: postgresdb
-
 - name: Start Pm2 service
   become: true
   command: pm2 start dist/main.js --name app chdir=/home/ubuntu/backend
@@ -53,4 +40,17 @@
     TYPEORM_PORT: 5432
     TYPEORM_USERNAME: postgresuser
     TYPEORM_PASSWORD: passpostgres
-    TYPEORM_DATABASE: postgresdb
+    TYPEORM_DATABASE: postgres
+
+- name: "start node application"
+  become: true
+  shell: node dist/main.js chdir=/home/ubuntu/backend
+  environment:
+    ENVIRONMENT: production
+    TYPEORM_CONNECTION: postgres
+    TYPEORM_ENTITIES: ./src/modules/domain/**/entities/*.entity.ts
+    TYPEORM_HOST: postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com
+    TYPEORM_PORT: 5432
+    TYPEORM_USERNAME: postgresuser
+    TYPEORM_PASSWORD: passpostgres
+    TYPEORM_DATABASE: postgres
