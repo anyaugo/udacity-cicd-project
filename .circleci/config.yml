@@ -221,7 +221,6 @@ jobs:
             npm i
             npm audit fix
             npm run build
-            cd dist/migrations
             npm run migrations:revert
             npm run migrations > output.txt 2>&1
       - run:

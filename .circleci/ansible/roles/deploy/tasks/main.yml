@@ -40,7 +40,7 @@
     TYPEORM_PORT: 5432
     TYPEORM_USERNAME: postgresuser
     TYPEORM_PASSWORD: passpostgres
-    TYPEORM_DATABASE: postgres
+    TYPEORM_DATABASE: postgresdb
 
 - name: Start Pm2 service
   become: true
@@ -53,4 +53,4 @@
     TYPEORM_PORT: 5432
     TYPEORM_USERNAME: postgresuser
     TYPEORM_PASSWORD: passpostgres
-    TYPEORM_DATABASE: postgres
+    TYPEORM_DATABASE: postgresdb
