@@ -226,7 +226,7 @@ jobs:
       - run:
           name: Send migration results to memstash
           command: |
-            cd backend/dist/migrations
+            cd backend
             cat output.txt
             if cat output.txt | grep -q "has been executed sucessfully"; then
                 curl -H "Content-Type: text/plain" -H \ 
