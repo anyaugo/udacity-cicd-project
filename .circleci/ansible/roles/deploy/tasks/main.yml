@@ -18,7 +18,7 @@
 
 - name: "update packages"
   become: true
-  shell: npm audit fix chdir=/home/ubuntu/backend
+  shell: npm update chdir=/home/ubuntu/backend
 
 - name: "install packages"
   become: true
