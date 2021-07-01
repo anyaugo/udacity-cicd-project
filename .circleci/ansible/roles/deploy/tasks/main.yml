@@ -16,7 +16,11 @@
     dest: /home/ubuntu
     remote_src: yes
 
-- name: "upgrade packages"
+- name: "update packages"
+  become: true
+  shell: npm audit fix chdir=/home/ubuntu/backend
+
+- name: "install packages"
   become: true
   shell: npm install chdir=/home/ubuntu/backend
 
