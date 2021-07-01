@@ -18,7 +18,9 @@
 
 - name: "update packages"
   become: true
-  shell: npm update chdir=/home/ubuntu/backend
+  npm:
+    path: /home/ubuntu/backend
+    state: latest
 
 - name: "install packages"
   become: true
