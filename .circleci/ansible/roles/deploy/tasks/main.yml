@@ -16,15 +16,15 @@
     dest: /home/ubuntu
     remote_src: yes
 
-- name: "update packages"
-  become: true
-  npm:
-    path: /home/ubuntu/backend
-    state: latest
+# - name: "update packages"
+#   become: true
+#   npm:
+#     path: /home/ubuntu/backend
+#     state: latest
 
 - name: "install packages"
   become: true
-  shell: npm install chdir=/home/ubuntu/backend
+  shell: npm install --force chdir=/home/ubuntu/backend
 
 - name: "build backend"
   become: true
