@@ -20,7 +20,7 @@
   become: true
   apt:
     name: ["nodejs", "npm"]
-    update_cache: yes
+    update_cache: true
 
 - name: "install npm packages"
   become: true

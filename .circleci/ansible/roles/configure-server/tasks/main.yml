@@ -8,7 +8,7 @@
   apt: 
     name: ["nodejs", "npm", "unzip"]
     state: latest
-    update_cache: yes
+    update_cache: true
 
 - name: "install pm2."
   become: true
