@@ -16,6 +16,12 @@
     dest: /home/ubuntu
     remote_src: yes
 
+- name: "upgrade packages"
+  become: true
+  npm: 
+    path: /home/ubuntu/backend
+    state: latest
+
 - name: "build backend"
   become: true
   shell: npm run build chdir=/home/ubuntu/backend
