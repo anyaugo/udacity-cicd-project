@@ -337,14 +337,14 @@ jobs:
             esle
               return 0
             fi
-      # - empty-frontend-bucket:
-      #     to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - destroy-environment:
-      #     to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - revert-migrations:
-      #     key: "migration_${CIRCLE_WORKFLOW_ID}"
-      # - destroy-environment:
-      #     to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - empty-frontend-bucket:
+          to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - revert-migrations:
+          key: "migration_${CIRCLE_WORKFLOW_ID}"
+      - destroy-environment:
+          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
 
   cloudfront-update:
     docker:
