@@ -44,7 +44,7 @@
 
 - name: "start node application"
   become: true
-  shell: npm run start:prod chdir=/home/ubuntu/backend
+  shell: npm run start chdir=/home/ubuntu/backend
   environment:
     ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
