@@ -18,9 +18,7 @@
 
 - name: "upgrade packages"
   become: true
-  npm: 
-    path: /home/ubuntu/backend
-    state: latest
+  shell: npm install
 
 - name: "build backend"
   become: true
