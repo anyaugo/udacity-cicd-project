@@ -264,8 +264,6 @@ jobs:
             npm i
             npm run build
             aws s3 cp ./dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      - revert-migrations:
-          key: "migration_${CIRCLE_WORKFLOW_ID}"
       - empty-frontend-bucket:
           to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
