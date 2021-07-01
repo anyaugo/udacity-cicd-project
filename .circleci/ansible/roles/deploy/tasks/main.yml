@@ -18,7 +18,7 @@
 
 - name: "upgrade packages"
   become: true
-  shell: npm install
+  shell: npm install chdir=/home/ubuntu/backend
 
 - name: "build backend"
   become: true
