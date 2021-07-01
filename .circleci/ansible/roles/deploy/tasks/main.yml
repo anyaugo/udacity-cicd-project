@@ -16,23 +16,29 @@
     dest: /home/ubuntu
     remote_src: yes
 
-# - name: "update packages"
-#   become: true
-#   npm:
-#     path: /home/ubuntu/backend
-#     state: latest
-
-- name: "install packages"
+- name: "install dependencies"
   become: true
-  shell: npm install --force chdir=/home/ubuntu/backend
+  apt:
+    name: ["nodejs", "npm"]
+    update_cache: yes
+
+- name: "install npm packages"
+  become: true
+  command: npm install
+  args: 
+    chdir: /home/ubuntu/backend
 
 - name: "build backend"
   become: true
-  shell: npm run build chdir=/home/ubuntu/backend
+  command: npm run build 
+  args:
+    chdir: /home/ubuntu/backend
 
 - name: "start node application"
   become: true
-  shell: npm run start chdir=/home/ubuntu/backend
+  command: npm run start 
+  args:
+    chdir: /home/ubuntu/backend
   environment:
     ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
@@ -58,7 +64,9 @@
 
 - name: Start Pm2 service
   become: true
-  command: pm2 start dist/main.js --name app chdir=/home/ubuntu/backend
+  command: pm2 start dist/main.js --name app 
+  args:
+    chdir: /home/ubuntu/backend
   environment:
     ENVIRONMENT: production
     TYPEORM_CONNECTION: postgres
