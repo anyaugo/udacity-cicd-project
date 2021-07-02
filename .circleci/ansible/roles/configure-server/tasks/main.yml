@@ -1,14 +1,25 @@
+- name: "update packages."
+  become: true
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
 - name: "upgrade packages."
   become: true
   apt:
-    upgrade: yes
+    upgrade: dist
+    force_apt_get: yes
 
 - name: "install dependencies."
   become: true
   apt: 
-    name: ["unzip"]
+    name: [ "unzip"]
     state: latest
     update_cache: true
+
+- name: "install node/npm"
+  shell: |
+    curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt-get install -y nodejs
 
 - name: "install pm2."
   become: true
