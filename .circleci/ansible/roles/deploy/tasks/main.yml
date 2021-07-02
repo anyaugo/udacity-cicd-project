@@ -23,9 +23,11 @@
     dest: /home/ubuntu
     remote_src: yes
 
-- name: "install node/npm"
+- name: "download node/npm"
   become: true
-  command: curl -fsSL https://deb.nodesource.com/setup_12.22.1 | bash - apt-get install -y nodejs
+  command: |
+    curl -fsSL https://deb.nodesource.com/setup_12.22.1 
+    apt-get install -y nodejs
   args:
     warn: false
 
