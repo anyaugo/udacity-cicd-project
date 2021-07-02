@@ -23,11 +23,9 @@
     dest: /home/ubuntu
     remote_src: yes
 
-- name: "install dependencies"
+- name: "install node/npm"
   become: true
-  apt:
-    name: ["nodejs", "npm"]
-    update_cache: yes
+  command: curl -fsSL https://deb.nodesource.com/setup_12.22.1 | bash - apt-get install -y nodejs
 
 - name: "install npm packages"
   become: true
