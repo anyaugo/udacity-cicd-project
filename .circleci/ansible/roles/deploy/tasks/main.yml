@@ -25,7 +25,7 @@
 
 - name: "start node application"
   become: true
-  command: npm run start
+  command: nohup npm run start &
   args:
     chdir: /home/ubuntu/backend
   environment:
