@@ -26,11 +26,17 @@
 - name: "download node/npm"
   become: true
   command: |
-    curl -fsSL https://deb.nodesource.com/setup_12.22.1 
-    apt-get install -y nodejs
+    curl -fsSL https://deb.nodesource.com/setup_12.22.1
   args:
     warn: false
+    chdir: /home/ubuntu
 
+- name: "install node/npm"
+  become: true
+  command: apt-get install -y nodejs
+  args:
+    chdir: /home/ubuntu
+    
 - name: "install npm packages"
   become: true
   command: npm install
