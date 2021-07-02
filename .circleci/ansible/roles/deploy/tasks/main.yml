@@ -1,6 +1,11 @@
 - name: "upgrade packages."
   become: true
   apt:
+    update: yes
+
+- name: "upgrade packages."
+  become: true
+  apt:
     upgrade: yes
 
 - name: "copy files."
