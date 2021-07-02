@@ -13,24 +13,6 @@ commands:
           command: |
             aws cloudformation delete-stack --stack-name "<<parameters.to>>"
 
-  revert-migrations:
-    description: Revert the last migration if successfully run in the current workflow.
-    parameters:
-      key:
-        type: string
-    steps:
-      - run:
-          name: Revert migrations
-          when: on_fail
-          command: |
-            curl -H "token: 68de42c9-7df8-430d-b8b7-60e78adeb091" --request GET https://api.memstash.io/values/"<<parameters.key>>" >> SUCCESS
-            if(( $SUCCESS==1 )); 
-            then
-                cd ~/project/backend
-                npm install
-                npm run migrations:revert 
-            fi
-
   empty-frontend-bucket:
     description: Empty front-end s3 bucket.
     parameters:
@@ -333,14 +315,12 @@ jobs:
             esle
               return 0
             fi
-      # - empty-frontend-bucket:
-      #     to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - destroy-environment:
-      #     to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - revert-migrations:
-      #     key: "migration_${CIRCLE_WORKFLOW_ID}"
-      # - destroy-environment:
-      #     to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - empty-frontend-bucket:
+          to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+      - destroy-environment:
+          to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
 
   cloudfront-update:
     docker:
@@ -363,8 +343,6 @@ jobs:
           to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
           to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
-      - revert-migrations:
-          key: "migration_${CIRCLE_WORKFLOW_ID}"
       - destroy-environment:
           to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
 

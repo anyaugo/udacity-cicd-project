@@ -10,7 +10,7 @@
     src: /tmp/backend.zip
     dest: /home/ubuntu
     remote_src: yes
-    
+
 - name: "install npm packages"
   become: true
   command: npm install
@@ -25,7 +25,7 @@
 
 - name: "start node application"
   become: true
-  command: npm run start 
+  command: npm run start:prod
   args:
     chdir: /home/ubuntu/backend
   environment:
