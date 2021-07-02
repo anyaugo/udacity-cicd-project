@@ -17,43 +17,30 @@
   args: 
     chdir: /home/ubuntu/backend
 
-# - name: "build backend"
-#   become: true
-#   command: npm run build 
-#   args:
-#     chdir: /home/ubuntu/backend
-
-- name: "start node application"
+- name: "build backend"
   become: true
-  command: npm run start&
+  command: npm run build 
   args:
     chdir: /home/ubuntu/backend
-  environment:
-    ENVIRONMENT: production
-    NODE_ENV: local
-    VERSION: 1
-    TYPEORM_CONNECTION: postgres
-    TYPEORM_MIGRATIONS_DIR: ./src/migrations
-    TYPEORM_ENTITIES: ./src/modules/domain/**/entities/*.entity.ts
-    TYPEORM_MIGRATIONS: ./src/migrations/*.ts
-    TYPEORM_HOST: postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com
-    TYPEORM_PORT: 5432
-    TYPEORM_USERNAME: postgresuser
-    TYPEORM_PASSWORD: passpostgres
-    TYPEORM_DATABASE: postgres
 
-# - name: "pre-start node application"
+# - name: "start node application"
 #   become: true
-#   shell: rimraf /home/ubuntu/backend/dist && /home/ubuntu/backend/node_modules/.bin/tsc chdir=/home/ubuntu/backend/node_modules/.bin
+#   command: npm run start&
+#   args:
+#     chdir: /home/ubuntu/backend
 #   environment:
 #     ENVIRONMENT: production
+#     NODE_ENV: local
+#     VERSION: 1
 #     TYPEORM_CONNECTION: postgres
-#     TYPEORM_ENTITIES: ./src/modules/domain/**/*.entity.ts
+#     TYPEORM_MIGRATIONS_DIR: ./src/migrations
+#     TYPEORM_ENTITIES: ./src/modules/domain/**/entities/*.entity.ts
+#     TYPEORM_MIGRATIONS: ./src/migrations/*.ts
 #     TYPEORM_HOST: postgres-udacity.c1pkw7dekdff.eu-west-2.rds.amazonaws.com
 #     TYPEORM_PORT: 5432
 #     TYPEORM_USERNAME: postgresuser
 #     TYPEORM_PASSWORD: passpostgres
-#     TYPEORM_DATABASE: postgresdb
+#     TYPEORM_DATABASE: postgres
 
 - name: Start Pm2 service
   become: true
