@@ -12,19 +12,16 @@
     remote_src: yes
 
 - name: "install npm packages"
-  become: true
-  command: npm install
+  command: sudo npm install
   args: 
     chdir: /home/ubuntu/backend
 
 - name: "build backend"
-  become: true
-  command: npm run build 
+  command: sudo npm run build 
   args:
     chdir: /home/ubuntu/backend
 
-- name: Start Pm2 service
-  become: true
+- name: "start Pm2 service"
   command: pm2 start dist/main.js --name app 
   args:
     chdir: /home/ubuntu/backend
@@ -41,3 +38,7 @@
     TYPEORM_USERNAME: postgresuser
     TYPEORM_PASSWORD: passpostgres
     TYPEORM_DATABASE: postgres
+
+- name: "run application as service"
+  shell: |
+    sudo env PATH=$PATH:/usr/local/bin pm2 startup -u ubuntu
