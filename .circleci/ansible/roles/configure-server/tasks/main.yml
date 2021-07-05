@@ -26,10 +26,6 @@
   shell: |
    apt-get install libcap2-bin
 
-- name: "which node"
-  shell: |
-    which node
-
 - name: "configure port bind"
   shell: |
     sudo setcap cap_net_bind_service=+ep /usr/bin/node
