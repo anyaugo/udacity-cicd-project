@@ -22,7 +22,7 @@
     sudo apt-get install libcap2-bin
 
 - name: "configure port bind"
-  sheLl: |
+  shell: |
     sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
 
 - name: "install node/npm"
