@@ -22,8 +22,9 @@
     curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt-get install -y nodejs
 
 - name: "install libcap2-bin"
+  become: true
   shell: |
-    sudo apt-get install libcap2-bin
+   apt-get install libcap2-bin
 
 - name: "which node"
   shell: |
