@@ -17,6 +17,10 @@
     state: latest
     update_cache: true
 
+- name: "install node/npm"
+  shell: |
+    curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt-get install -y nodejs
+
 - name: "install libcap2-bin"
   shell: |
     sudo apt-get install libcap2-bin
@@ -24,10 +28,6 @@
 - name: "configure port bind"
   shell: |
     sudo setcap cap_net_bind_service=+ep /usr/local/bin/node
-
-- name: "install node/npm"
-  shell: |
-    curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt-get install -y nodejs
 
 - name: "install pm2."
   become: true
