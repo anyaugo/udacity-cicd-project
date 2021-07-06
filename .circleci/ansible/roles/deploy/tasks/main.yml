@@ -21,8 +21,13 @@
   args:
     chdir: /home/ubuntu/backend
 
-- name: "start Pm2 service"
-  command: pm2 start ./dist/main.js --name app 
+- name: "run application as service"
+  shell: |
+    sudo env PATH=$PATH:/usr/local/bin pm2 startup -u ubuntu
+
+- name: "start application"
+  become: true
+  command: npm run start 
   args:
     chdir: /home/ubuntu/backend
   environment:
@@ -39,6 +44,3 @@
     TYPEORM_PASSWORD: passpostgres
     TYPEORM_DATABASE: postgres
 
-- name: "run application as service"
-  shell: |
-    sudo env PATH=$PATH:/usr/local/bin pm2 startup -u ubuntu
