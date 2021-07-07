@@ -240,12 +240,12 @@ jobs:
             BACKEND_IP=$( cat output.txt )
             export API_URL="http://$BACKEND_IP:3030"
             echo "${API_URL}"
+            npm i
+            npm run build
       - run:
           name: Deploy frontend objects
           command: |
             cd frontend
-            npm i
-            npm run build
             aws s3 cp ./dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - empty-frontend-bucket:
           to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
@@ -277,12 +277,6 @@ jobs:
             zip -r backend.zip backend
             cd /root/project/.circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
-      # - empty-frontend-bucket:
-      #     to: "udapeople-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - destroy-environment:
-      #     to: "backend-${CIRCLE_WORKFLOW_ID:0:7}"
-      # - destroy-environment:
-      #     to: "frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
   smoke-test:
     docker:
