@@ -240,6 +240,7 @@ jobs:
             BACKEND_IP=$( cat output.txt )
             export API_URL="http://$BACKEND_IP:3030"
             echo "${API_URL}"
+            cd frontend
             npm i
             npm run build
       - run:
