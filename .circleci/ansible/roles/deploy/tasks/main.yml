@@ -27,7 +27,7 @@
 
 - name: "start application"
   become: true
-  command: npm run start 
+  command: pm2 --name app start npm -- start
   args:
     chdir: /home/ubuntu/backend
   environment:
