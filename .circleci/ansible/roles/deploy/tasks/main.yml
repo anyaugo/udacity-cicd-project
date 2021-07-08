@@ -27,12 +27,12 @@
 
 - name: "start application"
   become: true
-  command: npm run start 
+  command: pm2 start ./dist/main.js 
   args:
     chdir: /home/ubuntu/backend
   environment:
     ENVIRONMENT: production
-    NODE_ENV: local
+    NODE_ENV: production
     VERSION: 1
     TYPEORM_CONNECTION: postgres
     TYPEORM_MIGRATIONS_DIR: ./src/migrations
